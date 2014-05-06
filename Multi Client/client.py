@@ -1,21 +1,22 @@
 import socket
 
-sockets = []
+#connecting to server
+connection = socket.socket(socket.AF_INET,socket.SOCK_STREAM,0)
+connection.connect(("127.0.0.1",1234))
 
-ports = 99999999
+#asking for nickname
+handle = raw_input("Enter a nockname!\n")
+#get message form user
+message = raw_input("Enter a message to send to server!\n")
 
-request = """GET / HTTP/1.1/ \r\n
-Connection: keep-alive\r\n
-"""
+message = handle +" : "+message
 
-while ports!= 0:
+#send message to server
+connection.send(message)
+#get reply from server
+reply = connection.recv(1024)
+#print server reply
+print "\n",reply
 
-	S = socket.socket(socket.AF_INET,socket.SOCK_STREAM,0)
-
-	S.connect(("127.0.0.1",80))
-
-	S.send(request)
-
-	ports = ports - 1
-
-	print ports
+connection.close()
+#progrma ends
